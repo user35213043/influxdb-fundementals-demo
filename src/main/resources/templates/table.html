@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latest Foods</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 24px; }
+    h1 { margin-bottom: 12px; }
+    table { border-collapse: collapse; width: 100%; max-width: 900px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #f5f5f5; }
+    tr:nth-child(even) { background: #fafafa; }
+    .error { color: #b00020; margin-bottom: 12px; }
+    .links { margin: 14px 0; }
+  </style>
+</head>
+<body>
+
+<h1>Latest Food Records</h1>
+
+<div class="links">
+  <a href="/">Back to form</a> |
+  <a href="/api/foods">View raw JSON</a>
+</div>
+
+<div th:if="${error}" class="error">
+  Error parsing data: <span th:text="${error}"></span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Food</th>
+      <th>Calories</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:if="${#lists.isEmpty(foods)}">
+      <td colspan="3">No records yet.</td>
+    </tr>
+
+    <tr th:each="f : ${foods}">
+      <td th:text="${f.time}"></td>
+      <td th:text="${f.name}"></td>
+      <td th:text="${f.calories}"></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
